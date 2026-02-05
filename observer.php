@@ -61,7 +61,8 @@ class SmsSubscriber implements Observer {
         echo "SMS sent to {$this->number}: New news - {$message}
 ";
     }
-    // Usage example
+    
+    // Usage example 1
 $agency = new NewsAgency();
 
 $emailUser = new EmailSubscriber("Alice");
@@ -72,3 +73,19 @@ $agency->attach($smsUser);
 
 $agency->addNews("Observer pattern implemented in PHP!");
 $agency->addNews("Breaking news: PHP is awesome!");
+
+    //usage example 2
+$newsAgency = new NewsAgency();
+
+$emailObserver = new EmailSubscriber("Alice");
+$smsObserver = new SmsSubscriber("123-456-7890");
+
+$newsAgency->attach($emailObserver);
+$newsAgency->attach($smsObserver);
+
+$newsAgency->addNews("Observer Pattern Implemented in PHP!"); // Notifies all observers
+
+// Detach SMS subscriber and send another news update
+$newsAgency->detach($smsObserver);
+$newsAgency->addNews("Second news item, SMS unsubscribed.");
+?>
