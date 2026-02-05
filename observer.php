@@ -1,17 +1,14 @@
 <?php
-// Subject interface
 interface Subject {
     public function attach(Observer $observer);
     public function detach(Observer $observer);
     public function notify();
 }
 
-// Observer interface
 interface Observer {
     public function update($message);
 }
 
-// Concrete Subject class
 class NewsAgency implements Subject {
     private $observers = [];
     private $news;
@@ -38,7 +35,6 @@ class NewsAgency implements Subject {
     }
 }
 
-// Concrete Observer classes
 class EmailSubscriber implements Observer {
     private $name;
     public function __construct($name) {
@@ -62,7 +58,6 @@ class SmsSubscriber implements Observer {
 ";
     }
     
-    // Usage example 1
 $agency = new NewsAgency();
 
 $emailUser = new EmailSubscriber("Alice");
@@ -74,7 +69,6 @@ $agency->attach($smsUser);
 $agency->addNews("Observer pattern implemented in PHP!");
 $agency->addNews("Breaking news: PHP is awesome!");
 
-    //usage example 2
 $newsAgency = new NewsAgency();
 
 $emailObserver = new EmailSubscriber("Alice");
@@ -84,8 +78,6 @@ $newsAgency->attach($emailObserver);
 $newsAgency->attach($smsObserver);
 
 $newsAgency->addNews("Observer Pattern Implemented in PHP!"); // Notifies all observers
-
-// Detach SMS subscriber and send another news update
 $newsAgency->detach($smsObserver);
 $newsAgency->addNews("Second news item, SMS unsubscribed.");
 ?>
